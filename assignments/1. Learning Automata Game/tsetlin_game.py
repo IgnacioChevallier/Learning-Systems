@@ -2,21 +2,20 @@
 import random
 
 class Environment:
-    def __init__(self, c_1, c_2):
-        self.c_1 = c_1
-        self.c_2 = c_2
+    def __init__(self):
+        pass
 
-    def penalty(self, action):
-        if action == 1:
-            if random.random() <= self.c_1:
-                return True
-            else:
+    def penalty(self, M):
+        if M == 0 or M == 1 or M == 2 or M == 3:
+            if random.random() < M * 0.2:
                 return False
-        elif action == 2:
-            if random.random() <= self.c_2:
-                return True
             else:
+                return True
+        elif M == 4 or M == 5:
+            if random.random() < 0.6 - (M - 3) * 0.2:
                 return False
+            else:
+                return True
 
 class Tsetlin:
     def __init__(self, n):
@@ -45,22 +44,29 @@ class Tsetlin:
 
 
 # Main execution
-env = Environment(0.1, 0.3)
-la = Tsetlin(3)
-action_count = [0, 0]
+env = Environment()
+automata = [Tsetlin(10) for _ in range(5)]  # Create 5 Tsetlin Automata
+total_iterations = 10000
 
-for i in range(10000):
-    action = la.makeDecision()
-    action_count[action - 1] += 1
-    penalty = env.penalty(action)
-
-    print("State:", la.state, "Action:", action, end=' ')
-    if penalty:
-        print("Penalty", end=' ')
-        la.penalize()
-    else:
-        print("Reward", end=' ')
-        la.reward()
-    print("New State:", la.state)
-
-print("#Action 1:", action_count[0], "#Action 2:", action_count[1])
+for iteration in range(total_iterations):
+    # All 5 automata make decisions
+    decisions = []
+    for automaton in automata:
+        action = automaton.makeDecision() # 1 = "No" and 2 = "Yes"
+        decisions.append(action)
+    
+    # Count "Yes" actions
+    M = decisions.count(2)
+    
+    # Apply rewards / penalties to each automaton
+    for i, automaton in enumerate(automata):
+        penalty = env.penalty(M)
+        
+        if penalty:
+            automaton.penalize()
+        else:
+            automaton.reward()
+    
+final_decisions = [automaton.makeDecision() for automaton in automata]
+final_yes_count = final_decisions.count(2)
+print(f"Final 'Yes' actions: {final_yes_count}/5")
