@@ -45,8 +45,10 @@ class Tsetlin:
 
 # Main execution
 env = Environment()
-automata = [Tsetlin(10) for _ in range(5)]  # Create 5 Tsetlin Automata
-total_iterations = 10000
+num_automata = 5
+automata = [Tsetlin(10) for _ in range(num_automata)]  # Create 5 Tsetlin Automata
+total_iterations = 100000
+final_decisions=[]
 
 for iteration in range(total_iterations):
     # All 5 automata make decisions
@@ -56,8 +58,10 @@ for iteration in range(total_iterations):
         decisions.append(action)
     
     # Count "Yes" actions
-    M = decisions.count(2)
-    
+    M = decisions.count(2)    
+
+    final_decisions.append(decisions)
+
     # Apply rewards / penalties to each automaton
     for i, automaton in enumerate(automata):
         penalty = env.penalty(M)
@@ -67,6 +71,7 @@ for iteration in range(total_iterations):
         else:
             automaton.reward()
     
-final_decisions = [automaton.makeDecision() for automaton in automata]
-final_yes_count = final_decisions.count(2)
-print(f"Final 'Yes' actions: {final_yes_count}/5")
+yes_count = 0
+for decision in final_decisions:
+    yes_count += decision.count(2)
+print(f"Final 'Yes' actions: {yes_count/len(final_decisions)}")

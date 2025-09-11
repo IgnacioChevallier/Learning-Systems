@@ -1,0 +1,8 @@
+[
+  {"Menopause": "ge40", "Inv_nodes": "3-5", "Deg_malig": 3, "Recurrence": "yes"},
+  {"Menopause": "lt40", "Inv_nodes": "0-2", "Deg_malig": 3,  "Recurrence": "no"},
+  {"Menopause": "ge40", "Inv_nodes": "6-8",  "Deg_malig": 3, "Recurrence": "yes"},
+  {"Menopause": "ge40", "Inv_nodes": "0-2",  "Deg_malig": 2,  "Recurrence": "no"},
+  {"Menopause": "premeno", "Inv_nodes": "0-2", "Deg_malig": 3,  "Recurrence": "yes"},
+  {"Menopause": "premeno", "Inv_nodes": "0-2",  "Deg_malig": 1, "Recurrence": "no"}
+]

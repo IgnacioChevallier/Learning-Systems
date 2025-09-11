@@ -1,0 +1,29 @@
+[
+  {
+    "Deg_malig_3": 10,
+    "NOT Deg_malig_3": 1,
+    "Menopause_lt40": 1,
+    "NOT Menopause_lt40": 10,
+    "Inv_nodes_0_2": 1,
+    "NOT Inv_nodes_0_2": 1,
+    "label_is_recurrence": true
+  },
+  {
+    "Deg_malig_3": 10,
+    "NOT Deg_malig_3": 1,
+    "Menopause_lt40": 1,
+    "NOT Menopause_lt40": 1,
+    "Inv_nodes_0_2": 1,
+    "NOT Inv_nodes_0_2": 1,
+    "label_is_recurrence": true
+  },
+  {
+    "Deg_malig_3": 1,
+    "NOT Deg_malig_3": 1,
+    "Menopause_lt40": 1,
+    "NOT Menopause_lt40": 1,
+    "Inv_nodes_0_2": 10,
+    "NOT Inv_nodes_0_2": 1,
+    "label_is_recurrence": false
+  }
+]
