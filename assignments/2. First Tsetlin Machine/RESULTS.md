@@ -15,7 +15,8 @@ Patient 4: Non-Recurrence  Votes: -1
 Patient 5: Recurrence      Votes:  1
 Patient 6: Non-Recurrence  Votes: -1
 ```
-This shows the different predictions the Tsetlin Machine achieved on each one of the patience whether there is Recurrece or not. On top of this, it shows the amount of votes it got from which we can now how certain of the decition made it is.
+This shows the different predictions the Tsetlin Machine achieved on each one of the patients whether there is Recurrece or not. 
+On top of this, it shows the amount of votes it got from which we can now how certain of the decition made is.
 
 ## Task 2
 
@@ -50,5 +51,6 @@ Non-Recurrence rules:
 IF Deg_malig_3 AND Menopause_lt40 AND NOT Inv_nodes_0_2 THEN Non-Recurrence
 ```
 
-The results of task 3 being similar show that the Tsetlin Machine is robust to variations in forget and memorize parameters. Even when we change the balance between forgetting and memorization (0.8/0.2, 0.5/0.5, or 0.2/0.8), the machine converges to nearly the same rules. 
+The results of task 3 being similar show that the Tsetlin Machine is robust to variations in forget and memorize parameters. 
+Even when we change the balance between forgetting and memorization the machine converges to nearly the same rules. 
 This indicates that the core learning dynamics are stable, and the system consistently extracts the same underlying patterns from the data.
