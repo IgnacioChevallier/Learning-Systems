@@ -95,7 +95,7 @@ def classify(observation, recurrence_rules, nonrec_rules):
     return 'Recurrence' + str("      Votes:  " + str(vote_sum)) if vote_sum >= 0 else 'Non-Recurrence' + str("  Votes: " + str(vote_sum))
 
 def main():
-    # Initialize memories at 5 for all literals (Forgotten, like notebook)
+    # Initialize memories at 5 for all literals
     NUM_RECURRENCE_RULES = 1
     NUM_NONREC_RULES = 1
     FORGET_VALUE = 0.8
