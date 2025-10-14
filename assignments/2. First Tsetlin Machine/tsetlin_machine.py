@@ -102,7 +102,7 @@ def main():
     MEMORIZE_VALUE = 0.2
 
     # Use defined rules if True, otherwise train rules from scratch
-    USE_DEFINED_RULES = True
+    USE_DEFINED_RULES = False
     DEFINED_RULES = defined_rules
 
     if USE_DEFINED_RULES:
