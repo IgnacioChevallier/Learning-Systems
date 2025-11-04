@@ -35,23 +35,20 @@ def calculate_stationary_distribution(s: float, p_l_given_y: float, p_y: float, 
     A = p_l_given_y * p_y + p_notl_given_noty * p_not_y
 
     # Unnormalized pi_i (exactly following the image)
-    pi1 = (p_y**4) * (p_notl_given_y**7)
-    pi2 = (p_y**3) * (p_notl_given_y**6) * (s**1) * (A**1)
-    pi3 = (p_y**2) * (p_notl_given_y**5) * (s**2) * (A**2)
-    pi4 = (p_y**1) * (p_notl_given_y**4) * (s**3) * (A**3)
-    pi5 = (p_notl_given_y**3)           * (s**4) * (A**4)
+    pi1 = (p_y**4)         * (p_notl_given_y**7)
+    pi2 = (p_y**3)         * (p_notl_given_y**6) * (s**1) * (A**1)
+    pi3 = (p_y**2)         * (p_notl_given_y**5) * (s**2) * (A**2)
+    pi4 = (p_y**1)         * (p_notl_given_y**4) * (s**3) * (A**3)
+    pi5 =                    (p_notl_given_y**3) * (s**4) * (A**4)
     pi6 = (p_l_given_y**1) * (p_notl_given_y**2) * (s**5) * (A**4)
     pi7 = (p_l_given_y**2) * (p_notl_given_y**1) * (s**6) * (A**4)
-    pi8 = (p_l_given_y**3)                         * (s**7) * (A**4)
+    pi8 = (p_l_given_y**3)                       * (s**7) * (A**4)
 
     pis = np.array([pi1, pi2, pi3, pi4, pi5, pi6, pi7, pi8], dtype=float)
 
     # Normalize with α so that sum pi_i = 1
     total = pis.sum()
-    if total == 0.0:
-        # Avoid division by zero — return a uniform distribution as a safe fallback.
-        return np.ones(8) / 8.0
-
+    
     return pis / total
 
 
