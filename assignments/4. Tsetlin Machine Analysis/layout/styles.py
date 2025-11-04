@@ -27,10 +27,8 @@ CONTROL_BLOCK_STYLE = {
 }
 
 LABEL_STYLE = {
-    'fontSize': '18px',
+    'fontSize': '20px',
     'fontWeight': '600',
     'display': 'block',
     'marginBottom': '6px',
 }
-
-

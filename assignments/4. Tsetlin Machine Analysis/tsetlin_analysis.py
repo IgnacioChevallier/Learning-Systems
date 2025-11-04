@@ -1,14 +1,4 @@
 from __future__ import annotations
-
-# Minimal Dash/Plotly app that visualizes an 8-state literal automaton's
-# stationary distribution.
-#
-# NOTE: The exact closed-form equations might be shown in the provided lecture images.
-# Here we implement a simple, interpretable Markov chain for 8 states (4 include-side,
-# 4 exclude-side). Rewards move you toward the extreme of the current side; penalties
-# move you toward the center/boundary; the remaining probability keeps you in place.
-# This produces a reasonable stationary distribution to explore interactively.
-
 import numpy as np
 
 from dash import Dash, dcc, html, Input, Output
@@ -22,11 +12,9 @@ from layout.styles import (
     LABEL_STYLE,
 )
 
+NUM_STATES = 8
 
-NUM_STATES = 8  # 4 include, 4 exclude
-
-
-def build_transition_matrix(s: float, p_l_given_y: float, p_y: float) -> np.ndarray:
+def build_transition_matrix(s: float, p_l_given_y: float, p_y: float, p_notl_given_noty: float) -> np.ndarray:
     """
     Build an 8x8 transition matrix for a simplified literal automaton.
 
@@ -34,19 +22,16 @@ def build_transition_matrix(s: float, p_l_given_y: float, p_y: float) -> np.ndar
     - s: sensitivity parameter (here used to modulate step strength)
     - p_l_given_y: P(L|Y)
     - p_y: P(Y)
+    - p_notl_given_noty: P(NOT L | NOT Y)
 
     Derived:
-    - p_l_given_not_y = 1 - p_l_given_y
+    - p_l_given_not_y = 1 - p_notl_given_noty
     - p_not_y = 1 - p_y
     - reward prob (towards extreme): p_reward = p_y * p_l_given_y
     - penalty prob (towards center): p_penalty = p_y * (1 - p_l_given_y) + p_not_y * p_l_given_not_y
     - stay = 1 - p_reward - p_penalty (clipped to [0,1])
-
-    State indexing (0..7):
-    - 0..3: include side (0 is most include/extreme, 3 is near boundary)
-    - 4..7: exclude side (7 is most exclude/extreme, 4 is near boundary)
     """
-    p_l_given_not_y = 1.0 - p_l_given_y
+    p_l_given_not_y = 1.0 - p_notl_given_noty
     p_not_y = 1.0 - p_y
 
     p_reward = p_y * p_l_given_y
@@ -125,6 +110,13 @@ app.layout = html.Div([
             )
         ], style=CONTROL_BLOCK_STYLE),
         html.Div([
+            html.Label("P(NOT L | NOT Y):", style=LABEL_STYLE),
+            dcc.Slider(
+                id='p_notl_given_noty', min=0.0, max=1.0, step=0.01, value=0.7,
+                marks={0: '0.0', 0.5: '0.5', 1.0: '1.0'}
+            )
+        ], style=CONTROL_BLOCK_STYLE),
+        html.Div([
             html.Label("P(Y):", style=LABEL_STYLE),
             dcc.Slider(
                 id='p_y', min=0.0, max=1.0, step=0.01, value=0.5,
@@ -139,10 +131,11 @@ app.layout = html.Div([
     Output('bar', 'figure'),
     Input('s', 'value'),
     Input('p_l_given_y', 'value'),
-    Input('p_y', 'value')
+    Input('p_y', 'value'),
+    Input('p_notl_given_noty', 'value')
 )
-def update_chart(s: float, p_l_given_y: float, p_y: float):
-    T = build_transition_matrix(s, p_l_given_y, p_y)
+def update_chart(s: float, p_l_given_y: float, p_y: float, p_notl_given_noty: float):
+    T = build_transition_matrix(s, p_l_given_y, p_y, p_notl_given_noty)
     pi = stationary_distribution(T)
     x = [f"S{i+1}" for i in range(NUM_STATES)]
     fig = go.Figure(go.Bar(x=x, y=pi, marker_color="#154360"))

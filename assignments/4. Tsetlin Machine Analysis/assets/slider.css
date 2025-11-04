@@ -1,0 +1,23 @@
+/* Increase base font size in this app scope */
+body { font-size: 16px; }
+
+/* Dark blue theme color to match chart */
+:root { --tm-blue: #154360; }
+
+/* Slider rail and track thickness + color */
+.rc-slider-rail { height: 6px; }
+.rc-slider-track { background-color: var(--tm-blue); height: 6px; }
+
+/* Slider handle (dot) bigger and dark blue */
+.rc-slider-handle {
+  width: 22px;
+  height: 22px;
+  margin-top: -9px; /* center handle on thicker rail */
+  border: 2px solid var(--tm-blue);
+  background-color: var(--tm-blue);
+  box-shadow: none;
+}
+
+/* Active dots use dark blue */
+.rc-slider-dot-active { border-color: var(--tm-blue); }
+
