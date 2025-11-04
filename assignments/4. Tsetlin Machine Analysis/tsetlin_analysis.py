@@ -48,9 +48,13 @@ def calculate_stationary_distribution(s: float, p_l_given_y: float, p_y: float, 
 
     # Normalize with α so that sum pi_i = 1
     total = pis.sum()
-    
+
     return pis / total
 
+
+# --------------------------------------------------------------------
+# FROM HERE ONWARDS IS FRONTEND CODE, NOT IMPORTANT FOR THE ASSIGNMENT
+# --------------------------------------------------------------------
 
 app = Dash(__name__)
 
