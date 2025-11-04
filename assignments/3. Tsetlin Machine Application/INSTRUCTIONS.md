@@ -24,7 +24,7 @@ make
 ```
 
 ## What it does
-It plays many random games (10,000,000 loop iterations).
-Each move is placed randomly on an empty cell.
-When a player connects their respective sides, it declares a winner.
-If the win happened with many empty cells left (e.g., number_of_open_positions >= 75), it prints the winner and the final board state using X and O.
+- It plays many random games (10,000,000 loop iterations).
+- Each move is placed randomly on an empty cell.
+- When a player connects their respective sides, it declares a winner.
+- If the win happened with many empty cells left (e.g., number_of_open_positions >= 75), it prints the winner and the final board state using X and O.
